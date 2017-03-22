@@ -13,6 +13,7 @@ using System.Data;
 public partial class _Default : System.Web.UI.Page {
     protected void masterGrid_DataBinding (object sender, EventArgs e) {
         DoSelect(masterDataSource.DataFile);
+        int t=lsdfkjds;
     }
     private void DoSelect (string connectionString) {
         DataView selectResult = new DataView();
