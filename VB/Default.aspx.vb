@@ -11,29 +11,29 @@ Imports System.Collections
 Imports System.Data
 
 Partial Public Class _Default
-	Inherits System.Web.UI.Page
+    Inherits System.Web.UI.Page
 
-	Protected Sub masterGrid_DataBinding(ByVal sender As Object, ByVal e As EventArgs)
-		DoSelect(masterDataSource.DataFile)
-	End Sub
-	Private Sub DoSelect(ByVal connectionString As String)
-		Dim selectResult As New DataView()
-		Dim selectCommand As String = "select distinct [CategoryID] from [Products]"
-		Using ds As New AccessDataSource(connectionString, selectCommand)
-			selectResult = DirectCast(ds.Select(DataSourceSelectArguments.Empty), DataView)
-		End Using
-		Dim result As New ArrayList()
-		For Each row As DataRow In selectResult.Table.Rows
-			result.Add(row("CategoryID"))
-		Next row
-		Session("SelectResult") = result
-	End Sub
-	Protected Sub masterGrid_DetailRowGetButtonVisibility(ByVal sender As Object, ByVal e As ASPxGridViewDetailRowButtonEventArgs)
-		If Not DirectCast(Session("SelectResult"), ArrayList).Contains(e.KeyValue) Then
-			e.ButtonState = GridViewDetailRowButtonState.Hidden
-		End If
-	End Sub
-	Protected Sub detailGrid_BeforePerformDataSelect(ByVal sender As Object, ByVal e As EventArgs)
-		Session("CategoryID") = (TryCast(sender, ASPxGridView)).GetMasterRowKeyValue()
-	End Sub
+    Protected Sub masterGrid_DataBinding(ByVal sender As Object, ByVal e As EventArgs)
+        DoSelect(masterDataSource.DataFile)
+    End Sub
+    Private Sub DoSelect(ByVal connectionString As String)
+        Dim selectResult As New DataView()
+        Dim selectCommand As String = "select distinct [CategoryID] from [Products]"
+        Using ds As New AccessDataSource(connectionString, selectCommand)
+            selectResult = DirectCast(ds.Select(DataSourceSelectArguments.Empty), DataView)
+        End Using
+        Dim result As New ArrayList()
+        For Each row As DataRow In selectResult.Table.Rows
+            result.Add(row("CategoryID"))
+        Next row
+        Session("SelectResult") = result
+    End Sub
+    Protected Sub masterGrid_DetailRowGetButtonVisibility(ByVal sender As Object, ByVal e As ASPxGridViewDetailRowButtonEventArgs)
+        If Not DirectCast(Session("SelectResult"), ArrayList).Contains(e.KeyValue) Then
+            e.ButtonState = GridViewDetailRowButtonState.Hidden
+        End If
+    End Sub
+    Protected Sub detailGrid_BeforePerformDataSelect(ByVal sender As Object, ByVal e As EventArgs)
+        Session("CategoryID") = (TryCast(sender, ASPxGridView)).GetMasterRowKeyValue()
+    End Sub
 End Class
