@@ -10,7 +10,7 @@ using System.Drawing;
 using System.Collections;
 using System.Data;
 
-public partial class _Default : System.Web.UI.Pag {
+public partial class _Default : System.Web.UI.Pa {
     protected void masterGrid_DataBinding (object sender, EventArgs e) {
         DoSelect(masterDataSource.DataFile);
     }
